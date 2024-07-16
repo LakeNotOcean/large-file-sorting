@@ -1,13 +1,11 @@
 import { createReadStream, ReadStream } from 'fs';
-import { join } from 'path';
 import { EncodingEnum } from 'src/files-functions/enums/encoding.enum';
 
 export function createReadStreamForFile(
-	workingDir: string,
-	filename: string,
+	filePath: string,
 	fileEncoding: EncodingEnum,
 ): ReadStream {
-	return createReadStream(join(workingDir, filename), {
+	return createReadStream(filePath, {
 		encoding: fileEncoding,
 	});
 }

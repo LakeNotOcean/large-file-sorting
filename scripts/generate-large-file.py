@@ -12,6 +12,6 @@ def generate_large_file(file_name, target_size_gb):
             f.write(random_string + '\n')
 
 file_name = 'D:\\test\\large_file.txt'
-target_size_gb = 100
+target_size_gb = 10
 
 generate_large_file(file_name, target_size_gb)

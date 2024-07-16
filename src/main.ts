@@ -12,7 +12,7 @@ const fileEncoding = config.getOrThrow<EncodingEnum>('fileEncoding');
 
 littleConsoleLogger.log('start of file splitting...');
 splitFileAndSortPaths({
-	filename,
+	targetFilename: filename,
 	stringBufferSize: toBytes(config.getOrThrow('stringBufferSize')),
 	workingDir,
 	fileEncoding,
@@ -23,7 +23,7 @@ splitFileAndSortPaths({
 	.then(() => {
 		littleConsoleLogger.log('file splitting completed successfully');
 		littleConsoleLogger.log('start of sorting...');
-		externalSort({ filename, workingDir, fileEncoding })
+		externalSort({ targetFilename: filename, workingDir, fileEncoding })
 			.catch((err) => {
 				littleConsoleLogger.error(err);
 			})

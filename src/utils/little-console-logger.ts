@@ -1,6 +1,6 @@
 export const littleConsoleLogger = (function () {
 	const logWithDateMessageFormat = (message: string) =>
-		`${new Date().toISOString()}: ${message}`;
+		`[APP] ${new Date().toISOString()}: ${message}`;
 	return {
 		log: function (message: string) {
 			console.log(logWithDateMessageFormat(message));

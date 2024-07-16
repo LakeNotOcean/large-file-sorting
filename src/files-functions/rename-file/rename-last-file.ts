@@ -1,10 +1,16 @@
-import { rename } from 'fs/promises';
 import { join } from 'path';
+import { GET_SORTED_FILE_NAME } from '../constants/get-sorted-file-name.costant';
+import { TEMPORARY_DIR_NAME } from '../constants/temporary-dir.constant';
 import { FilenamePrefixEnum } from '../enums/filename-prefix.enum';
-import { generatePath } from '../utils/generate-path';
+import { generateFilePath } from '../utils/generate-file-path';
+import { renameFile } from './rename-file';
 
-export async function renameLastFile(workingDir: string, filename: string) {
-	const oldPath = generatePath(workingDir, FilenamePrefixEnum.CURRENT, 0);
-	const newPath = join(workingDir, `sorted-${filename}`);
-	await rename(oldPath, newPath);
+export async function renameLastFile(
+	workingDir: string,
+	targetFilename: string,
+) {
+	await renameFile(
+		generateFilePath(workingDir, FilenamePrefixEnum.PREVIOUS, 0),
+		join(workingDir, TEMPORARY_DIR_NAME, GET_SORTED_FILE_NAME(targetFilename)),
+	);
 }
