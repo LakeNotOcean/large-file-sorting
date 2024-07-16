@@ -1,5 +1,5 @@
 import { createInterface } from 'readline';
-import { encodingParam } from 'src/files-functions/types/encoding-params.type';
+import { encodingParam } from 'src/files-functions/types/encoding-param.type';
 import { workingDirParam } from 'src/files-functions/types/working-dir-param.type';
 import { createReadStreamForFile } from './create-read-stream-for-file';
 

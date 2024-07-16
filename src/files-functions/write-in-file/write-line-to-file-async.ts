@@ -1,5 +1,5 @@
 import { FileHandle } from 'fs/promises';
-import { encodingParam } from '../types/encoding-params.type';
+import { encodingParam } from '../types/encoding-param.type';
 
 export type writeLineLineToFileAsyncParams = {
 	line: string;
