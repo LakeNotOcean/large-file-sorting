@@ -5,6 +5,6 @@ import { generatePath } from '../utils/generate-path';
 
 export async function renameLastFile(workingDir: string, filename: string) {
 	const oldPath = generatePath(workingDir, FilenamePrefixEnum.CURRENT, 0);
-	const newPath = join(workingDir, filename);
+	const newPath = join(workingDir, `sorted-${filename}`);
 	await rename(oldPath, newPath);
 }

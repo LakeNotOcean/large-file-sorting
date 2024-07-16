@@ -22,13 +22,12 @@ splitFileAndSortPaths({
 	})
 	.then(() => {
 		littleConsoleLogger.log('file splitting completed successfully');
-	});
-
-littleConsoleLogger.log('start of sorting...');
-externalSort({ filename, workingDir, fileEncoding })
-	.catch((err) => {
-		littleConsoleLogger.error(err);
-	})
-	.then(() => {
-		littleConsoleLogger.log('file sorting completed successfully');
+		littleConsoleLogger.log('start of sorting...');
+		externalSort({ filename, workingDir, fileEncoding })
+			.catch((err) => {
+				littleConsoleLogger.error(err);
+			})
+			.then(() => {
+				littleConsoleLogger.log('file sorting completed successfully');
+			});
 	});
