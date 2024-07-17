@@ -9,7 +9,7 @@ export class ConfigService {
 
 	constructor() {
 		const configData = config({
-			path: join(__dirname, '..', '..', 'env', CONFIG_FILENAME),
+			path: join(process.cwd(), 'env', CONFIG_FILENAME),
 		});
 		if (!configData.parsed) {
 			const error = configData.error ?? new Error('config parse error');
