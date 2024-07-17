@@ -17,6 +17,9 @@ export type mergeTwoFilesParams = {
 } & workingDirParam &
 	encodingParam;
 
+// Функция объединения двух файлов - этап внешней сортировки
+// В один момент времени рассматривается только одна строка от каждого файла,
+// можно оптимизировать, используя буфер, но на данный момент это не реализовано
 export async function mergeTwoFiles(params: mergeTwoFilesParams) {
 	const firstIterator = initInterator(params, params.firstFileNumber);
 	const secondIterator = initInterator(params, params.secondFileNumber);
