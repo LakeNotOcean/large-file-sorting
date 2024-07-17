@@ -21,7 +21,7 @@ export async function externalSort(params: externalSortParams) {
 	);
 	while (filesNumbers.length > 1) {
 		littleConsoleLogger.log(
-			`start of sort the iteration, number of files: ${filesNumbers.length}`,
+			`start the sort iteration, number of files: ${filesNumbers.length}`,
 		);
 		const newFileNumbers = new Array<number>();
 
