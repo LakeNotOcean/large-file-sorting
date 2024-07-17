@@ -1,4 +1,5 @@
 import { littleConsoleLogger } from 'src/utils/little-console-logger';
+import { memoryUsageUtil } from 'src/utils/memory-usage';
 import { FilenamePrefixEnum } from '../enums/filename-prefix.enum';
 import { mergeTwoFiles } from '../merge-files/merge-two-files';
 import { moveResultFile } from '../rename-file/move-result-file';
@@ -23,6 +24,9 @@ export async function externalSort(params: externalSortParams) {
 			`start of sort the iteration, number of files: ${filesNumbers.length}`,
 		);
 		const newFileNumbers = new Array<number>();
+
+		memoryUsageUtil.printMemoryUsage('before the sort iteration');
+
 		for (let i = 0; i < filesNumbers.length - 1; i += 2) {
 			await mergeTwoFiles({
 				firstFileNumber: filesNumbers[i],
@@ -53,6 +57,7 @@ export async function externalSort(params: externalSortParams) {
 		filesNumbers.length = 0;
 		filesNumbers = newFileNumbers;
 
+		memoryUsageUtil.printMemoryUsage('after the sort iteration');
 		littleConsoleLogger.log(`complition of the sort iteration`);
 	}
 	if (filesNumbers.length > 0) {

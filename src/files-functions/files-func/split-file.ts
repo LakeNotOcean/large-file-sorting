@@ -19,7 +19,6 @@ export async function splitFileAndSortPaths(params: splitFileParams) {
 		filePath: join(params.workingDir, params.targetFilename),
 	});
 
-	memoryUsageUtil.printMemoryUsage('test');
 	const lineBuffer: string[] = [];
 	let bufferSize = 0;
 	let bufferNumber = 0;
@@ -37,10 +36,15 @@ export async function splitFileAndSortPaths(params: splitFileParams) {
 		bufferSize += Buffer.byteLength(line, params.fileEncoding);
 		lineBuffer.push(line);
 		if (bufferSize >= params.stringBufferSize) {
+			memoryUsageUtil.printMemoryUsage('buffer overflow');
 			bufferSize = 0;
 			lineBuffer.sort();
 			await writeFunc();
 			lineBuffer.length = 0;
+			if (global.gc) {
+				global.gc();
+			}
+			memoryUsageUtil.printMemoryUsage('after buffer clearing');
 			bufferNumber += 1;
 		}
 	}
