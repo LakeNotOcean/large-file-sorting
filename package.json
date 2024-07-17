@@ -1,7 +1,7 @@
 {
 	"name": "large-file-sorting",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Large file sorting application",
 	"scripts": {
 		"prebuild": "rimraf dist",
 		"typecheck": "tsc --project tsconfig.json",
