@@ -1,4 +1,4 @@
-import { ConfigService } from 'src/config/config.service';
+import { configServiceSingleton } from 'src/config/config-singleton.service';
 import { littleConsoleLogger } from './little-console-logger';
 
 const formatMemoryUsage = (data: number) =>
@@ -23,9 +23,8 @@ const getMemoryUsage = () => {
 };
 export const memoryUsageUtil = (function () {
 	process.memoryUsage();
-	const configService = new ConfigService();
-	const isPrintMemoryUsage =
-		configService.getOrThrow('printMemoryUsage') === 'true';
+	const config = configServiceSingleton.getInstance();
+	const isPrintMemoryUsage = config.getOrThrow('printMemoryUsage') === 'true';
 	return {
 		printMemoryUsage: function (message?: string) {
 			if (!isPrintMemoryUsage) {

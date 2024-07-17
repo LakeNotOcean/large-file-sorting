@@ -6,6 +6,7 @@ import { moveResultFile } from '../rename-file/move-result-file';
 import { renameCurrFiles } from '../rename-file/rename-curr-files';
 import { renameLastFile } from '../rename-file/rename-last-file';
 import { renameNotPairFile } from '../rename-file/rename-not-pair-file';
+import { removeTmpDir } from '../tmp-dir/remove-tmp-dir';
 import { encodingParam } from '../types/encoding-param.type';
 import { workingDirParam } from '../types/working-dir-param.type';
 import { findFilesNumbers } from './find-files-numbers';
@@ -14,11 +15,13 @@ import { removePrevFiles } from './remove-files';
 export type externalSortParams = { targetFilename: string } & workingDirParam &
 	encodingParam;
 
+// Внещняя сортировка уже созданных временных файлов
 export async function externalSort(params: externalSortParams) {
 	let filesNumbers = await findFilesNumbers(
 		params.workingDir,
 		FilenamePrefixEnum.PREVIOUS,
 	);
+	// В ходе сортировки каждый раз уменьшаем количество временных файлов в 2 раза
 	while (filesNumbers.length > 1) {
 		littleConsoleLogger.log(
 			`start the sort iteration, number of files: ${filesNumbers.length}`,
@@ -46,6 +49,7 @@ export async function externalSort(params: externalSortParams) {
 			newFileNumbers.push(newFileNumbers.length);
 			filesNumbers.pop();
 		}
+		// Перед новым циклом избавляемся от файлов прошлой итерации и переименовываем файлы текущей
 		await removePrevFiles({
 			workingDir: params.workingDir,
 			filesNumbers,
@@ -60,8 +64,10 @@ export async function externalSort(params: externalSortParams) {
 		memoryUsageUtil.printMemoryUsage('after the sort iteration');
 		littleConsoleLogger.log(`complition of the sort iteration`);
 	}
+	// Подготовка итогового файла
 	if (filesNumbers.length > 0) {
 		await renameLastFile(params.workingDir, params.targetFilename);
 		await moveResultFile(params.workingDir, params.targetFilename);
+		await removeTmpDir(params.workingDir);
 	}
 }

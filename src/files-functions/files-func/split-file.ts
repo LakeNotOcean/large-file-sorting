@@ -12,8 +12,11 @@ export type splitFileParams = {
 	stringBufferSize: number;
 } & workingDirParam &
 	encodingParam;
+
+// Разбиение файла
 export async function splitFileAndSortPaths(params: splitFileParams) {
-	createTmpDir(params.workingDir);
+	// Инициализация и создание временной директории
+	await createTmpDir(params.workingDir);
 	const lineIterator = initReadlineIterator({
 		fileEncoding: params.fileEncoding,
 		filePath: join(params.workingDir, params.targetFilename),
@@ -22,6 +25,7 @@ export async function splitFileAndSortPaths(params: splitFileParams) {
 	const lineBuffer: string[] = [];
 	let bufferSize = 0;
 	let bufferNumber = 0;
+	// Набор логики для записи буфера
 	const writeFunc = async () => {
 		await writeLinesArrayToFile({
 			lines: lineBuffer,
@@ -35,6 +39,8 @@ export async function splitFileAndSortPaths(params: splitFileParams) {
 	for await (const line of lineIterator) {
 		bufferSize += Buffer.byteLength(line, params.fileEncoding);
 		lineBuffer.push(line);
+		// Записываем буфер в новый файл, если он заполнен
+		// После заполнения вызывается сборщик мусора
 		if (bufferSize >= params.stringBufferSize) {
 			memoryUsageUtil.printMemoryUsage('buffer overflow');
 			bufferSize = 0;

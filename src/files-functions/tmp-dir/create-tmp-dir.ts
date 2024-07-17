@@ -1,11 +1,11 @@
 import { existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
-import { TEMPORARY_DIR_NAME } from '../constants/temporary-dir.constant';
+import { temporaryDirName } from '../utils/temporary-dir-name';
 import { removeTmpDir } from './remove-tmp-dir';
 
-export function createTmpDir(workingDir: string) {
+export async function createTmpDir(workingDir: string) {
 	if (existsSync(workingDir)) {
-		removeTmpDir(workingDir);
+		await removeTmpDir(workingDir);
 	}
-	mkdirSync(join(workingDir, TEMPORARY_DIR_NAME), { recursive: true });
+	mkdirSync(join(workingDir, temporaryDirName.get()), { recursive: true });
 }

@@ -1,12 +1,13 @@
-const ConfigServiceSingleton = (function () {
+import { ConfigService } from './config.service';
+
+export const configServiceSingleton = (function () {
+	let configService: ConfigService;
 	return {
 		getInstance: function () {
-			if (instance == null) {
-				instance = new SingletonClass();
-				// Hide the constructor so the returned object can't be new'd...
-				instance.constructor = null;
+			if (!configService) {
+				configService = new ConfigService();
 			}
-			return instance;
+			return configService;
 		},
 	};
 })();

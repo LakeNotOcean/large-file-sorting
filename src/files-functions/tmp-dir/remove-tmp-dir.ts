@@ -1,9 +1,9 @@
-import { rmSync } from 'fs';
+import { rm } from 'fs/promises';
 import { join } from 'path';
-import { TEMPORARY_DIR_NAME } from '../constants/temporary-dir.constant';
+import { temporaryDirName } from '../utils/temporary-dir-name';
 
-export function removeTmpDir(workingDir: string) {
-	rmSync(join(workingDir, TEMPORARY_DIR_NAME), {
+export async function removeTmpDir(workingDir: string) {
+	await rm(join(workingDir, temporaryDirName.get()), {
 		recursive: true,
 		force: true,
 	});

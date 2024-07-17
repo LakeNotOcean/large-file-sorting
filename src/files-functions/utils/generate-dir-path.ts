@@ -1,6 +1,5 @@
 import { join } from 'path';
-import { TEMPORARY_DIR_NAME } from '../constants/temporary-dir.constant';
-
+import { temporaryDirName } from './temporary-dir-name';
 export function generateDirPath(workingDir: string): string {
-	return join(workingDir, TEMPORARY_DIR_NAME);
+	return join(workingDir, temporaryDirName.get());
 }
