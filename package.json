@@ -12,7 +12,9 @@
 	"keywords": [
 		"large",
 		"file",
-		"sorting"
+		"sorting",
+		"Node.js",
+		"Typescript"
 	],
 	"author": "Nevsky Vladislav",
 	"license": "MIT",
